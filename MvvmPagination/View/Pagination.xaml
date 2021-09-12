@@ -19,7 +19,7 @@
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
         <TextBlock Text="Show"/>
-        <ComboBox ItemsSource="{Binding ItemPerPageList}" SelectedItem="{Binding ItemPerPage}"/>
+        <ComboBox ItemsSource="{Binding PageSizes}" SelectedItem="{Binding ItemPerPage}"/>
         <TextBlock Text="Items per page"/>
         <Button Content="First" Command="{Binding FirstPageCommand}"/>
         <Button Content="Previous" Command="{Binding PreviousPageCommand}"/>

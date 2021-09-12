@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace MvvmPagination.View
 {
     /// <summary>
-    /// Logique d'interaction pour Pagination.xaml
+    /// Interaction logic for Pagination.xaml
     /// </summary>
     public partial class Pagination : UserControl
     {

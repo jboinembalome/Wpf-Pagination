@@ -8,28 +8,28 @@ namespace MvvmPagination.ViewModel
 {
     public class PaginationViewModel<T> : ViewModelBase where T : class
     {
-        private readonly ObservableCollection<T> _collection;
+        private readonly ICollection<T> _collection;
         private readonly int _itemCount;
 
-        public PaginationViewModel(ObservableCollection<T> collection)
+        public PaginationViewModel(ICollection<T> collection)
         {
             _collection = collection;
             _itemCount = collection.Count;
 
-            ItemPerPage = ItemPerPageList[0];
+            ItemPerPage = PageSizes[0];
 
             RefreshData();
         }
 
         #region Properties
-        private ObservableCollection<T> _items;
-        public ObservableCollection<T> Items
+        private ObservableCollection<T> _itemsPaginated;
+        public ObservableCollection<T> ItemsPaginated
         {
-            get => _items;
-            set => Set(() => Items, ref _items, value);
+            get => _itemsPaginated;
+            set => Set(() => ItemsPaginated, ref _itemsPaginated, value);
         }
 
-        public List<int> ItemPerPageList => new List<int> { 5, 10, 15, 20, 50, 100 };
+        public List<int> PageSizes => new List<int> { 5, 10, 15, 20, 50, 100 };
 
         private int _itemPerPage;
         public int ItemPerPage
@@ -164,7 +164,7 @@ namespace MvvmPagination.ViewModel
         private void RefreshData()
         {
             IEnumerable<T> items = _collection.Skip(CurrentPageIndex * ItemPerPage).Take(ItemPerPage);
-            Items = new ObservableCollection<T>(items);
+            ItemsPaginated = new ObservableCollection<T>(items);
         }
 
         private IEnumerable<int> CalculatePageList()
