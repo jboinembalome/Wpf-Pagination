@@ -1,4 +1,5 @@
 using GalaSoft.MvvmLight;
+using MvvmPagination.CustomControl;
 using MvvmPagination.Model;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,14 @@ namespace MvvmPagination.ViewModel
             People = new ObservableCollection<Person>(FakePeople());
 
             PaginationViewModel = new PaginationViewModel<Person>(People);
+
+            PaginationWithCollectionViewViewModel = new PaginationWithCollectionViewViewModel<Person>(People);
         }
 
         #region Properties
         public PaginationViewModel<Person> PaginationViewModel { get; set; }
+
+        public PaginationWithCollectionViewViewModel<Person> PaginationWithCollectionViewViewModel { get; set; }
 
         private ObservableCollection<Person> _people;
         public ObservableCollection<Person> People

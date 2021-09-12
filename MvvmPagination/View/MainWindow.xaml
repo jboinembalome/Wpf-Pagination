@@ -65,6 +65,18 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
+                <ListView Margin="5" ItemsSource="{Binding PaginationWithCollectionViewViewModel.PagingCollection}" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="First name" Width="150" DisplayMemberBinding="{Binding FirstName}" />
+                            <GridViewColumn Header="Last name" Width="150" DisplayMemberBinding="{Binding LastName}" />
+                            <GridViewColumn Header="Birthday" Width="150" DisplayMemberBinding="{Binding Birthday}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <uc:Pagination Grid.Row="1" Margin="5" DataContext="{Binding PaginationWithCollectionViewViewModel}"/>
             </Grid>
         </TabItem>
     </TabControl>

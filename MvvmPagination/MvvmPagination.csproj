@@ -70,10 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControl\PagingCollectionView.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="CustomControl\PagingControl.cs" />
     <Compile Include="Enums\PageChanges.cs" />
     <Compile Include="Events\PageChangedEventArgs.cs" />
+    <Compile Include="ViewModel\PaginationWithCollectionViewViewModel.cs" />
     <Compile Include="ViewModel\PaginationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
