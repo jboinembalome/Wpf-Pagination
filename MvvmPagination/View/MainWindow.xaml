@@ -3,26 +3,69 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uc="clr-namespace:MvvmPagination.View"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:uc="clr-namespace:MvvmPagination.View" 
+        xmlns:cc="clr-namespace:MvvmPagination.CustomControl" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <ListView Margin="5" ItemsSource="{Binding PaginationViewModel.Items}" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="First name" Width="150" DisplayMemberBinding="{Binding FirstName}" />
-                    <GridViewColumn Header="Last name" Width="150" DisplayMemberBinding="{Binding LastName}" />
-                    <GridViewColumn Header="Birthday" Width="150" DisplayMemberBinding="{Binding Birthday}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+    <TabControl>
+        <TabItem Header="Sample with MVVM">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ListView Margin="5" ItemsSource="{Binding PaginationViewModel.ItemsPaginated}" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="First name" Width="150" DisplayMemberBinding="{Binding FirstName}" />
+                            <GridViewColumn Header="Last name" Width="150" DisplayMemberBinding="{Binding LastName}" />
+                            <GridViewColumn Header="Birthday" Width="150" DisplayMemberBinding="{Binding Birthday}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-        <uc:Pagination Grid.Row="1" Margin="5" DataContext="{Binding PaginationViewModel}"/>
-    </Grid>
+                <uc:Pagination Grid.Row="1" Margin="5" DataContext="{Binding PaginationViewModel}"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Sample with Custom Control">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ListView Margin="5" ItemsSource="{Binding ItemsPaginated, ElementName=PagingControl, Mode=OneWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="First name" Width="150" DisplayMemberBinding="{Binding FirstName}" />
+                            <GridViewColumn Header="Last name" Width="150" DisplayMemberBinding="{Binding LastName}" />
+                            <GridViewColumn Header="Birthday" Width="150" DisplayMemberBinding="{Binding Birthday}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <cc:PagingControl x:Name="PagingControl" Grid.Row="1" Margin="5" ItemsSource="{Binding People, Mode=OneWay}">
+                    <cc:PagingControl.PageSizes>
+                        <sys:Int32>5</sys:Int32>
+                        <sys:Int32>10</sys:Int32>
+                        <sys:Int32>15</sys:Int32>
+                        <sys:Int32>20</sys:Int32>
+                        <sys:Int32>50</sys:Int32>
+                        <sys:Int32>100</sys:Int32>
+                    </cc:PagingControl.PageSizes>
+                </cc:PagingControl>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Sample with Custom CollectionView">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
