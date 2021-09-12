@@ -1,24 +1,24 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using MvvmPagination.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace MvvmPagination.ViewModel
 {
     public class PaginationViewModel<T> : ViewModelBase where T : class
     {
+        private readonly IPaginationService _paginationService;
         private readonly ICollection<T> _collection;
         private readonly int _itemCount;
 
-        public PaginationViewModel(ICollection<T> collection)
+        public PaginationViewModel(IPaginationService paginationService, ICollection<T> collection)
         {
+            _paginationService = paginationService;
             _collection = collection;
             _itemCount = collection.Count;
 
             ItemPerPage = PageSizes[0];
-
-            RefreshData();
         }
 
         #region Properties
@@ -39,18 +39,14 @@ namespace MvvmPagination.ViewModel
             {
                 _ = Set(() => ItemPerPage, ref _itemPerPage, value);
 
-                // Update CurrentPageIndex 
-                CurrentPageIndex = (CurrentPage > TotalPages) ? TotalPages - 1 : (CurrentPage < 1) ? 0 : CurrentPage - 1;
-
                 RaisePropertyChanged(nameof(TotalPages));
 
-                RefreshData();
+                CurrentPageIndex = (CurrentPage > TotalPages) ? TotalPages - 1 : (CurrentPage < 1) ? 0 : CurrentPage - 1;
             }
         }
 
 
-        public int TotalPages =>
-            _itemCount % ItemPerPage == 0 ? _itemCount / ItemPerPage : (_itemCount / ItemPerPage) + 1;
+        public int TotalPages => _itemCount % ItemPerPage == 0 ? _itemCount / ItemPerPage : (_itemCount / ItemPerPage) + 1;
 
         private int _currentPageIndex;
         public int CurrentPageIndex
@@ -62,12 +58,14 @@ namespace MvvmPagination.ViewModel
 
                 RaisePropertyChanged(nameof(CurrentPage));
                 RaisePropertyChanged(nameof(PageList));
+
+                UpdateItemsPaginated();
             }
         }
 
         public int CurrentPage => _itemCount == 0 ? 0 : _currentPageIndex + 1;
 
-        public IEnumerable<int> PageList => CalculatePageList();
+        public IEnumerable<int> PageList => _paginationService.CalculatePageList(TotalPages, CurrentPage);
 
         #endregion
 
@@ -80,11 +78,7 @@ namespace MvvmPagination.ViewModel
                                           () => PreviousPage(),
                                           () => CanExecutePreviousPage()));
 
-        private void PreviousPage()
-        {
-            CurrentPageIndex--;
-            RefreshData();
-        }
+        private void PreviousPage() => CurrentPageIndex--;
 
         private bool CanExecutePreviousPage() => CurrentPageIndex != 0;
         #endregion
@@ -97,11 +91,7 @@ namespace MvvmPagination.ViewModel
                                           () => NextPage(),
                                           () => CanExecuteNextPage()));
 
-        private void NextPage()
-        {
-            CurrentPageIndex++;
-            RefreshData();
-        }
+        private void NextPage() => CurrentPageIndex++;
 
         private bool CanExecuteNextPage() => TotalPages - 1 > CurrentPageIndex;
 
@@ -115,11 +105,7 @@ namespace MvvmPagination.ViewModel
                                           () => FirstPage(),
                                           () => CanExecuteFirstPage()));
 
-        private void FirstPage()
-        {
-            CurrentPageIndex = 0;
-            RefreshData();
-        }
+        private void FirstPage() => CurrentPageIndex = 0;
 
         private bool CanExecuteFirstPage() => CurrentPageIndex != 0;
         #endregion
@@ -132,11 +118,7 @@ namespace MvvmPagination.ViewModel
                                           () => LastPage(),
                                           () => CanExecuteLastPage()));
 
-        private void LastPage()
-        {
-            CurrentPageIndex = TotalPages - 1;
-            RefreshData();
-        }
+        private void LastPage() => CurrentPageIndex = TotalPages - 1;
 
         private bool CanExecuteLastPage() => CurrentPage != TotalPages;
         #endregion
@@ -149,11 +131,7 @@ namespace MvvmPagination.ViewModel
                                           param => UpdatePage(param),
                                           param => CanUpdatePage(param)));
 
-        private void UpdatePage(int selectedPage)
-        {
-            CurrentPageIndex = selectedPage - 1;
-            RefreshData();
-        }
+        private void UpdatePage(int selectedPage) => CurrentPageIndex = selectedPage - 1;
 
         private bool CanUpdatePage(int selectedPage) => selectedPage != CurrentPage;
         #endregion
@@ -161,27 +139,10 @@ namespace MvvmPagination.ViewModel
         #endregion
 
         #region Methods
-        private void RefreshData()
+        private void UpdateItemsPaginated()
         {
-            IEnumerable<T> items = _collection.Skip(CurrentPageIndex * ItemPerPage).Take(ItemPerPage);
+            IEnumerable<T> items = _paginationService.GetItems(_collection, CurrentPageIndex * ItemPerPage, ItemPerPage);
             ItemsPaginated = new ObservableCollection<T>(items);
-        }
-
-        private IEnumerable<int> CalculatePageList()
-        {
-            const int MAX_PAGE_RANGE = 5;
-            const int PAGE_DELTA = 2;
-
-            int startPage = 1;
-            int maxPage = TotalPages >= MAX_PAGE_RANGE ? MAX_PAGE_RANGE : TotalPages;
-
-            if (TotalPages > MAX_PAGE_RANGE && CurrentPage > PAGE_DELTA)
-                startPage = CurrentPage - PAGE_DELTA;
-
-            if (TotalPages > MAX_PAGE_RANGE && CurrentPage > TotalPages - PAGE_DELTA)
-                startPage = TotalPages - (MAX_PAGE_RANGE - 1);
-
-            return Enumerable.Range(startPage, maxPage);
         }
         #endregion
     }

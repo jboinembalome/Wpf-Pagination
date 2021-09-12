@@ -1,5 +1,5 @@
 using GalaSoft.MvvmLight;
-using MvvmPagination.CustomControl;
+using MvvmPagination.Interfaces;
 using MvvmPagination.Model;
 using System;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ namespace MvvmPagination.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(IPaginationService paginationService)
         {
             People = new ObservableCollection<Person>(FakePeople());
 
-            PaginationViewModel = new PaginationViewModel<Person>(People);
+            PaginationViewModel = new PaginationViewModel<Person>(paginationService, People);
 
             PaginationWithCollectionViewViewModel = new PaginationWithCollectionViewViewModel<Person>(People);
         }

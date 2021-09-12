@@ -1,5 +1,8 @@
 using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
+using MvvmPagination.Interfaces;
+using MvvmPagination.Model;
+using MvvmPagination.Services;
 
 namespace MvvmPagination.ViewModel
 {
@@ -26,7 +29,7 @@ namespace MvvmPagination.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            SimpleIoc.Default.Register<IPaginationService, PaginationService>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
