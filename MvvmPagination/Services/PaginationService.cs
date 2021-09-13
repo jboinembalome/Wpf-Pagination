@@ -1,8 +1,8 @@
-﻿using MvvmPagination.Interfaces;
+﻿using WpfPagination.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MvvmPagination.Services
+namespace WpfPagination.Services
 {
     public class PaginationService : IPaginationService
     {

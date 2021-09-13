@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace MvvmPagination.View
+namespace WpfPagination.View
 {
     /// <summary>
     /// Logical interaction for MainWindow.xaml

@@ -1,10 +1,10 @@
 using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
-using MvvmPagination.Interfaces;
-using MvvmPagination.Model;
-using MvvmPagination.Services;
+using WpfPagination.Interfaces;
+using WpfPagination.Model;
+using WpfPagination.Services;
 
-namespace MvvmPagination.ViewModel
+namespace WpfPagination.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the

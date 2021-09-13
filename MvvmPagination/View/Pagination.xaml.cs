@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MvvmPagination.View
+namespace WpfPagination.View
 {
     /// <summary>
     /// Interaction logic for Pagination.xaml

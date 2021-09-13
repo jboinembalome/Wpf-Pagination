@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MvvmPagination.Model
+namespace WpfPagination.Model
 {
     public class Person
     {

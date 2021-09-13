@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cc="clr-namespace:MvvmPagination.CustomControl">
+    xmlns:cc="clr-namespace:WpfPagination.CustomControl">
 
     <Style TargetType="{x:Type cc:PagingControl}">
         <Setter Property="Template">

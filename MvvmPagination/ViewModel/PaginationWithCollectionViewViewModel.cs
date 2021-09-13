@@ -1,9 +1,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using MvvmPagination.CustomControl;
+using WpfPagination.CustomControl;
 using System.Collections.Generic;
 
-namespace MvvmPagination.ViewModel
+namespace WpfPagination.ViewModel
 {
     public class PaginationWithCollectionViewViewModel<T> : ViewModelBase where T : class
     {

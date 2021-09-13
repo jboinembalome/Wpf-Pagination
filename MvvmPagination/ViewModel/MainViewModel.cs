@@ -1,12 +1,12 @@
 using GalaSoft.MvvmLight;
-using MvvmPagination.Interfaces;
-using MvvmPagination.Model;
+using WpfPagination.Interfaces;
+using WpfPagination.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace MvvmPagination.ViewModel
+namespace WpfPagination.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {

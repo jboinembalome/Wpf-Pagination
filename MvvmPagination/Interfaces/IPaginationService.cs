@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MvvmPagination.Interfaces
+namespace WpfPagination.Interfaces
 {
     public interface IPaginationService
     {

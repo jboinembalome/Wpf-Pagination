@@ -1,5 +1,5 @@
-﻿using MvvmPagination.Enums;
-using MvvmPagination.Events;
+﻿using WpfPagination.Enums;
+using WpfPagination.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace MvvmPagination.CustomControl
+namespace WpfPagination.CustomControl
 {
     [TemplatePart(Name = "PART_FirstPageButton", Type = typeof(Button)),
      TemplatePart(Name = "PART_PreviousPageButton", Type = typeof(Button)),

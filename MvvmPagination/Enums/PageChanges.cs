@@ -1,4 +1,4 @@
-﻿namespace MvvmPagination.Enums
+﻿namespace WpfPagination.Enums
 {
     public enum PageChanges
     {

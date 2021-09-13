@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 
-namespace MvvmPagination.CustomControl
+namespace WpfPagination.CustomControl
 {
     public class PagingCollectionView<T> : CollectionView where T : class
     {

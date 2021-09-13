@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace MvvmPagination.Events
+namespace WpfPagination.Events
 {
     public class PageChangedEventArgs : RoutedEventArgs
     {
