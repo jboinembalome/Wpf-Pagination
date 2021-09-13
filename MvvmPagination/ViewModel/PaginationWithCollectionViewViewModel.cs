@@ -39,7 +39,9 @@ namespace MvvmPagination.ViewModel
 
                 RaisePropertyChanged(nameof(TotalPages));
 
+                var currentPage = CurrentPage ?? 0;
                 PagingCollection = new PagingCollectionView<T>(_collection, ItemPerPage);
+                PagingCollection.CurrentPage = (currentPage > PagingCollection.TotalPages) ? PagingCollection.TotalPages : (currentPage < 1) ? 1 : currentPage;
 
                 RaisePropertyChanged(nameof(PageList));
             }
